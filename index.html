@@ -4,124 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connisko SMP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-        :root {
-            --bg-color: #0d1117;
-            --text-color: #e0e0e0;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --border-glow: rgba(0, 191, 165, 0.5);
-            --btn-bg: rgba(255, 255, 255, 0.2);
-            --btn-hover: #00bfa5;
-            --shadow-color: rgba(0, 255, 204, 0.3);
-        }
-
-        body.light-mode {
-            --bg-color: #f4f4f4;
-            --text-color: #222;
-            --glass-bg: rgba(0, 0, 0, 0.1);
-            --border-glow: rgba(0, 121, 107, 0.5);
-            --btn-bg: rgba(0, 0, 0, 0.1);
-            --btn-hover: #00796b;
-            --shadow-color: rgba(0, 121, 107, 0.3);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            background: var(--bg-color);
-            color: var(--text-color);
+            background: #0d1117;
+            color: #e0e0e0;
             font-family: 'Poppins', sans-serif;
-            height: 100%;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            transition: background 0.5s ease, color 0.5s ease;
+            padding: 20px;
         }
 
         .container {
+            width: 100%;
+            max-width: 400px;
             padding: 40px;
-            border-radius: 15px;
-            background: var(--glass-bg);
-            box-shadow: 0 0 20px var(--shadow-color);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 2px solid var(--border-glow);
-            width: 90%;
-            max-width: 400px;
+            border: 2px solid rgba(0, 191, 165, 0.5);
+            position: relative;
             animation: fadeIn 1s ease-in-out;
         }
 
         h1 {
-            font-size: 2.8rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--btn-hover), var(--border-glow));
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #00bfa5, rgba(0, 191, 165, 0.5));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0, 255, 204, 0.3));
         }
 
-        p {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+        .ip-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .ip-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
         }
 
         #server-ip {
+            font-size: 1.8rem;
             font-weight: bold;
-            color: var(--btn-hover);
+            color: #00bfa5;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
-            padding: 12px 22px;
-            margin: 10px;
+            padding: 12px 24px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             border: none;
-            border-radius: 8px;
-            background: var(--btn-bg);
-            color: var(--text-color);
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            outline: none;
-            box-shadow: 0 4px 10px var(--shadow-color);
-            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #00bfa5;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
         }
 
         button:hover {
-            background: var(--btn-hover);
-            color: #fff;
-            transform: scale(1.1);
-            border: 1px solid var(--border-glow);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .copy-btn {
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
         }
 
         .toast {
             position: fixed;
             bottom: 20px;
             left: 50%;
-            transform: translateX(-50%);
-            background: var(--btn-hover);
+            transform: translateX(-50%) translateY(100px);
+            background: #00bfa5;
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 8px;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transition: all 0.3s ease;
         }
 
         .toast.show {
+            transform: translateX(-50%) translateY(0);
             opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.9);
+                transform: scale(0.95);
             }
             to {
                 opacity: 1;
                 transform: scale(1);
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -129,20 +167,33 @@
 <body>
     <div class="container">
         <h1>Connisko SMP</h1>
-        <p>IP: <span id="server-ip">ConniskoSMP.com</span></p>
-        <button onclick="copyIP()">Copy IP</button>
-        <button onclick="toggleTheme()">Toggle Light/Dark</button>
+
+        <div class="ip-section">
+            <div class="ip-container">
+                <span id="server-ip">ConniskoSMP.com</span>
+                <button class="copy-btn" onclick="copyIP()">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-primary" onclick="copyIP()">
+                <i class="fas fa-play"></i>
+                Join Now
+            </button>
+            <a href="https://discord.gg/fER2Hwrwsx" target="_blank" rel="noopener noreferrer">
+                <button class="btn-secondary">
+                    <i class="fab fa-discord"></i>
+                    Discord
+                </button>
+            </a>
+        </div>
     </div>
 
     <div id="toast" class="toast">IP copied!</div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (localStorage.getItem("theme") === "light") {
-                document.body.classList.add("light-mode");
-            }
-        });
-
         function copyIP() {
             const ip = "ConniskoSMP.com";
             navigator.clipboard.writeText(ip).then(() => showToast());
@@ -152,11 +203,6 @@
             const toast = document.getElementById("toast");
             toast.classList.add("show");
             setTimeout(() => toast.classList.remove("show"), 2000);
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle("light-mode");
-            localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
         }
     </script>
 </body>
