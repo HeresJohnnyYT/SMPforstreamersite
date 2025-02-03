@@ -5,28 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connisko SMP</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
         :root {
-            --bg-color: #121212;
+            --bg-color: #0d1117;
             --text-color: #e0e0e0;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --accent-color: #00bfa5;
-            --btn-bg: rgba(255, 255, 255, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --border-glow: rgba(0, 191, 165, 0.5);
+            --btn-bg: rgba(255, 255, 255, 0.2);
+            --btn-hover: #00bfa5;
+            --shadow-color: rgba(0, 255, 204, 0.3);
         }
 
         body.light-mode {
             --bg-color: #f4f4f4;
             --text-color: #222;
-            --card-bg: rgba(0, 0, 0, 0.1);
-            --accent-color: #00796b;
+            --glass-bg: rgba(0, 0, 0, 0.1);
+            --border-glow: rgba(0, 121, 107, 0.5);
             --btn-bg: rgba(0, 0, 0, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.2);
+            --btn-hover: #00796b;
+            --shadow-color: rgba(0, 121, 107, 0.3);
         }
 
         body, html {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
+            background: var(--bg-color);
             color: var(--text-color);
             font-family: 'Poppins', sans-serif;
             height: 100%;
@@ -34,39 +38,46 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
         .container {
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
-            background: var(--card-bg);
-            box-shadow: 0 4px 15px var(--shadow-color);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            box-shadow: 0 0 20px var(--shadow-color);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--border-glow);
             width: 90%;
             max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin: 0 0 15px 0;
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--btn-hover), var(--border-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         p {
-            font-size: 1.2rem;
-            margin: 15px 0;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
         }
 
         #server-ip {
             font-weight: bold;
-            color: var(--accent-color);
+            color: var(--btn-hover);
         }
 
         button {
-            padding: 12px 20px;
+            padding: 12px 22px;
             margin: 10px;
             font-size: 1rem;
+            font-weight: bold;
             border: none;
             border-radius: 8px;
             background: var(--btn-bg);
@@ -74,13 +85,15 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             outline: none;
-            box-shadow: 0 2px 10px var(--shadow-color);
+            box-shadow: 0 4px 10px var(--shadow-color);
+            border: 1px solid transparent;
         }
 
         button:hover {
-            background: var(--accent-color);
+            background: var(--btn-hover);
             color: #fff;
-            transform: scale(1.05);
+            transform: scale(1.1);
+            border: 1px solid var(--border-glow);
         }
 
         .toast {
@@ -88,16 +101,28 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--accent-color);
+            background: var(--btn-hover);
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
 
         .toast.show {
             opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     </style>
 </head>
