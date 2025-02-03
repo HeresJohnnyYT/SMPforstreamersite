@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connisko SMP</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #00bfa5;
+            --btn-bg: #1f1f1f;
+        }
+        body.light-mode {
+            --bg-color: #f4f4f4;
+            --text-color: #222;
+            --accent-color: #00796b;
+            --btn-bg: #e0e0e0;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin: 0 0 20px 0;
+        }
+        p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        #server-ip {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Connisko SMP</h1>
+        <p>IP: <span id="server-ip">ConniskoSMP.com</span></p>
+        <button onclick="copyIP()">Copy IP</button>
+        <button onclick="toggleTheme()">Toggle Light/Dark</button>
+    </div>
+
+    <script>
+        function copyIP() {
+            const ip = "ConniskoSMP.com";
+            navigator.clipboard.writeText(ip).then(() => alert("IP copied: " + ip));
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+        }
+    </script>
+</body>
+</html>
