@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Join ConniskoSMP Minecraft Server - A premium survival multiplayer experience">
-    <title>ConniskoSMP | Premium Minecraft Server</title>
+    <title>Connisko SMP | Minecraft Server</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
-            --primary: #1a56db;
-            --primary-dark: #1e429f;
-            --primary-light: #e1effe;
-            --success: #059669;
-            --error: #dc2626;
-            --text: #111827;
-            --text-light: #4b5563;
-            --background: #f9fafb;
-            --card: #ffffff;
-            --border: #e5e7eb;
-            --hover: #f3f4f6;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #22c55e;
+            --error: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
         }
 
         * {
@@ -29,234 +27,300 @@
             box-sizing: border-box;
         }
 
-        body, html {
-            background: var(--background);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.5;
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
+            display: grid;
+            place-items: center;
+            padding: 1.25rem;
+            line-height: 1.5;
+            color: var(--gray-900);
         }
 
         .container {
             width: 100%;
-            max-width: 520px;
-            background: var(--card);
-            border-radius: 20px;
-            box-shadow: 0 8px 16px -4px rgb(0 0 0 / 0.05), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+            max-width: 28rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
         }
 
         .header {
-            padding: 32px;
-            border-bottom: 1px solid var(--border);
+            background: linear-gradient(to right, #1e293b, #0f172a);
+            color: white;
+            padding: 2.5rem 2rem;
             text-align: center;
-            background: linear-gradient(to bottom, var(--primary-light), var(--card));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
         .server-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px;
-            display: block;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            width: 6rem;
+            height: 6rem;
+            border-radius: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .server-icon:hover {
+            transform: scale(1.05);
         }
 
         .server-title {
-            font-size: 24px;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .server-description {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 16px;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .server-status {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--card);
-            border-radius: 100px;
-            box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.05);
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
         }
 
         .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--text-light);
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
         }
 
-        .status-online {
+        .status-online { 
             background: var(--success);
-            box-shadow: 0 0 0 4px rgb(5 150 105 / 0.2);
+            box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+            animation: pulse 2s infinite;
         }
 
-        .status-offline {
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .status-offline { 
             background: var(--error);
-            box-shadow: 0 0 0 4px rgb(220 38 38 / 0.2);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
         }
 
         .content {
-            padding: 32px;
+            padding: 1.5rem;
+            background: linear-gradient(to bottom, var(--gray-50), white);
         }
 
-        .ip-card {
-            background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            position: relative;
-            margin-bottom: 32px;
-            transition: all 0.2s;
+        .section {
+            margin-bottom: 1.5rem;
+            background: white;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            border: 1px solid var(--gray-200);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .ip-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .ip-label {
-            font-size: 13px;
+        .section-label {
+            font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 6px;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        #server-ip {
-            font-size: 22px;
+        .server-ip {
+            font-size: 1.25rem;
             font-weight: 600;
-            color: var(--text);
-            display: block;
-            margin-right: 48px;
-            word-break: break-all;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--gray-50);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
         }
 
         .copy-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: white;
+            border: 1px solid var(--gray-200);
             color: var(--primary);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 8px;
-            transition: all 0.2s;
+            display: grid;
+            place-items: center;
+            transition: all 0.2s ease;
         }
 
         .copy-btn:hover {
-            background: var(--primary);
-            color: white;
+            color: var(--primary-hover);
             border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
         }
 
-        .server-info {
+        .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 32px;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .info-item {
+        .stat {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
             text-align: center;
-            padding: 16px;
-            background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: all 0.2s;
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease;
         }
 
-        .info-item:hover {
-            border-color: var(--primary);
+        .stat:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .info-label {
-            font-size: 13px;
+        .stat-label {
+            font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 6px;
+            color: var(--gray-700);
+            margin-bottom: 0.25rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .info-value {
-            font-size: 16px;
+        .stat-value {
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--text);
+            color: var(--gray-900);
+            transition: color 0.2s ease;
         }
 
-        .btn-group {
-            display: grid;
-            gap: 12px;
+        .stat:hover .stat-value {
+            color: var(--primary);
         }
 
         .btn {
             width: 100%;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-size: 15px;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-size: 1rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: all 0.2s;
+            gap: 0.75rem;
             cursor: pointer;
             text-decoration: none;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:last-child {
+            margin-bottom: 0;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .3s, opacity .5s;
+        }
+
+        .btn:active::after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--primary-hover));
             color: white;
-            border: none;
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
         }
 
         .btn-secondary {
-            background: var(--background);
-            color: var(--text);
-            border: 1px solid var(--border);
+            background: var(--gray-100);
+            color: var(--gray-900);
+            border: 1px solid var(--gray-200);
         }
 
         .btn-secondary:hover {
-            background: var(--hover);
-            border-color: var(--primary);
+            background: var(--gray-200);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .toast {
             position: fixed;
-            bottom: 32px;
+            bottom: 2rem;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--text);
+            transform: translateX(-50%) translateY(100%);
+            background: var(--gray-900);
             color: white;
-            padding: 12px 24px;
-            border-radius: 100px;
-            font-size: 14px;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
             font-weight: 500;
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            z-index: 50;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .toast.show {
@@ -264,33 +328,46 @@
             opacity: 1;
         }
 
-        @media (max-width: 520px) {
-            body {
-                padding: 16px;
-            }
+        .player-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
 
+        .player-list.show {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            background: var(--gray-50);
+        }
+
+        @media (max-width: 640px) {
             .container {
-                border-radius: 16px;
+                margin: 0.5rem;
             }
-
+            
             .header {
-                padding: 24px;
+                padding: 2rem;
             }
-
+            
             .content {
-                padding: 24px;
+                padding: 1rem;
             }
 
-            #server-ip {
-                font-size: 18px;
+            .stats {
+                gap: 0.5rem;
             }
 
-            .server-info {
-                gap: 12px;
-            }
-
-            .info-item {
-                padding: 12px;
+            .stat {
+                padding: 0.75rem;
             }
         }
     </style>
@@ -298,120 +375,57 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="SMP-ICON.png" alt="ConniskoSMP Server Icon" class="server-icon">
-            <h1 class="server-title">ConniskoSMP</h1>
-            <p class="server-description">Premium Survival Multiplayer Experience</p>
+            <img src="/api/placeholder/96/96" alt="Server Icon" class="server-icon">
+            <h1 class="server-title">Connisko SMP</h1>
             <div class="server-status">
                 <span class="status-indicator"></span>
-                <span id="status">Checking server status...</span>
+                <span id="status">Checking status...</span>
             </div>
         </div>
 
         <div class="content">
-            <div class="ip-card">
-                <div class="ip-label">Server Address</div>
-                <span id="server-ip">ConniskoSMP.com</span>
-                <button class="copy-btn" onclick="copyIP()" aria-label="Copy server address">
-                    <i class="fas fa-copy"></i>
-                </button>
-            </div>
-
-            <div class="server-info">
-                <div class="info-item">
-                    <div class="info-label">Players</div>
-                    <div class="info-value" id="player-count">--/--</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Version</div>
-                    <div class="info-value" id="version">--</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Ping</div>
-                    <div class="info-value" id="ping">--ms</div>
+            <div class="section">
+                <div class="section-label">Server Address</div>
+                <div class="server-ip">
+                    <span>ConniskoSMP.com</span>
+                    <button class="copy-btn" onclick="copyIP()" aria-label="Copy IP">
+                        <i class="fas fa-copy"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="copyIP()">
-                    <i class="fas fa-play"></i>
-                    Start Playing Now
-                </button>
-                <a href="https://discord.gg/fER2Hwrwsx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="fab fa-discord"></i>
-                    Join Our Community
-                </a>
-                <a href="https://www.twitch.tv/connisko" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="fab fa-twitch"></i>
-                    Watch Live Streams
-                </a>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Players</div>
+                    <div class="stat-value" id="player-count">--/--</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Version</div>
+                    <div class="stat-value" id="version">--</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Ping</div>
+                    <div class="stat-value" id="ping">--ms</div>
+                </div>
             </div>
+
+            <button class="btn btn-primary" onclick="copyIP()">
+                <i class="fas fa-play"></i>
+                Join Server
+            </button>
+            <a href="https://discord.gg/fER2Hwrwsx" class="btn btn-secondary">
+                <i class="fab fa-discord"></i>
+                Join Discord
+            </a>
+            <a href="https://www.twitch.tv/connisko" class="btn btn-secondary">
+                <i class="fab fa-twitch"></i>
+                Watch Live
+            </a>
         </div>
     </div>
 
-    <div id="toast" class="toast">Server address copied to clipboard!</div>
+    <div id="toast" class="toast">IP copied to clipboard!</div>
 
     <script>
         const SERVER_ADDRESS = 'ConniskoSMP.com';
-        const STATUS_ENDPOINT = `https://api.mcsrvstat.us/2/${SERVER_ADDRESS}`;
-        
-        async function updateServerStatus() {
-            const statusIndicator = document.querySelector('.status-indicator');
-            const statusText = document.getElementById('status');
-            const playerCount = document.getElementById('player-count');
-            const versionElem = document.getElementById('version');
-            const pingElem = document.getElementById('ping');
-
-            try {
-                const startTime = performance.now();
-                const response = await fetch(STATUS_ENDPOINT);
-                const pingTime = Math.round(performance.now() - startTime);
-                const data = await response.json();
-
-                if (data.online) {
-                    statusIndicator.className = 'status-indicator status-online';
-                    statusText.textContent = 'Server Online';
-                    playerCount.textContent = `${data.players.online}/${data.players.max}`;
-                    versionElem.textContent = data.version;
-                    pingElem.textContent = `${pingTime}ms`;
-                } else {
-                    statusIndicator.className = 'status-indicator status-offline';
-                    statusText.textContent = 'Server Offline';
-                    playerCount.textContent = '--/--';
-                    versionElem.textContent = '--';
-                    pingElem.textContent = '--ms';
-                }
-            } catch (error) {
-                console.error('Error fetching server status:', error);
-                statusIndicator.className = 'status-indicator status-offline';
-                statusText.textContent = 'Status Unavailable';
-                playerCount.textContent = '--/--';
-                versionElem.textContent = '--';
-                pingElem.textContent = '--ms';
-            }
-        }
-
-        function copyIP() {
-            navigator.clipboard.writeText(SERVER_ADDRESS)
-                .then(() => showToast())
-                .catch(err => {
-                    console.error('Failed to copy:', err);
-                    showToast('Failed to copy server address');
-                });
-        }
-
-        function showToast(message = 'Server address copied to clipboard!') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateServerStatus();
-            // Update status every minute
-            setInterval(updateServerStatus, 60000);
-        });
-    </script>
-</body>
-</html>
+        let lastPing = 0;
