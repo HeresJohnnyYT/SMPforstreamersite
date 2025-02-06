@@ -1,3 +1,8 @@
+I'll modify the HTML to use the SMP-ICON.png file instead of an SVG.
+
+
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,13 +53,15 @@
         .header {
             padding: 24px 32px;
             border-bottom: 1px solid var(--border);
+            text-align: center;
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text);
-            text-align: center;
+        .server-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 12px;
+            display: block;
+            border-radius: 8px;
         }
 
         .server-status {
@@ -237,7 +244,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Connisko SMP</h1>
+            <img src="SMP-ICON.png" alt="Server Icon" class="server-icon">
             <div class="server-status">
                 <span class="status-indicator"></span>
                 <span id="status">Checking server status...</span>
