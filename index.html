@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connisko SMP</title>
+    <title>Connisko SMP | Minecraft Server</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr/2.3.9/lunr.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+        :root {
+            --primary-color: #4f9eff;
+            --secondary-color: #8a2be2;
+            --background-dark: #0f0f1a;
+            --background-light: #1a1a2e;
+            --accent-color: rgba(100, 100, 255, 0.2);
+            --online-color: #4CAF50;
+            --offline-color: #f44336;
+        }
 
         * {
             margin: 0;
@@ -15,7 +26,7 @@
         }
 
         body, html {
-            background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+            background: linear-gradient(135deg, var(--background-dark), var(--background-light));
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
@@ -24,61 +35,53 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
+        .particles {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 20%, #2a2a4a 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, #2a2a4a 0%, transparent 50%);
-            opacity: 0.4;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             padding: 40px;
             background: rgba(20, 20, 35, 0.95);
-            border-radius: 15px;
-            border: 1px solid rgba(100, 100, 255, 0.2);
+            border-radius: 20px;
+            border: 1px solid var(--accent-color);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 2;
-            overflow: hidden;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(100, 100, 255, 0.1),
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: shine 4s infinite;
-            z-index: -1;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(45deg);
-            }
-            100% {
-                transform: translateX(100%) rotate(45deg);
-            }
+            backdrop-filter: blur(10px);
         }
 
         h1 {
@@ -86,25 +89,65 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, #4f9eff, #8a2be2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 2px 10px rgba(79, 158, 255, 0.3);
-            position: relative;
+        }
+
+        .server-status {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .status-online {
+            background-color: var(--online-color);
+            box-shadow: 0 0 10px var(--online-color);
+        }
+
+        .status-offline {
+            background-color: var(--offline-color);
+            box-shadow: 0 0 10px var(--offline-color);
         }
 
         .ip-section {
             background: rgba(30, 30, 50, 0.9);
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 15px;
             margin-bottom: 30px;
-            border: 1px solid rgba(100, 100, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ip-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(79, 158, 255, 0.1), transparent);
+            animation: shine 3s infinite;
         }
 
         #server-ip {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: #4f9eff;
+            color: var(--primary-color);
             display: block;
             text-align: center;
             margin: 10px 0;
@@ -118,45 +161,25 @@
         }
 
         .btn {
-            padding: 15px 25px;
+            padding: 18px 25px;
             font-size: 1.1rem;
             font-weight: 600;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
             position: relative;
             overflow: hidden;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
         .btn-primary {
-            background: linear-gradient(135deg, #4f9eff, #8a2be2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             box-shadow: 0 4px 15px rgba(79, 158, 255, 0.3);
         }
@@ -167,6 +190,15 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 158, 255, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
         .copy-btn {
             position: absolute;
             right: 20px;
@@ -175,14 +207,16 @@
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #ffffff;
-            padding: 8px;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            z-index: 2;
         }
 
         .copy-btn:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
         }
 
         .toast {
@@ -190,13 +224,14 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, #4f9eff, #8a2be2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 15px 30px;
+            border-radius: 12px;
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .toast.show {
@@ -204,9 +239,20 @@
             opacity: 1;
         }
 
-        .ip-container {
-            position: relative;
-            padding: 10px;
+        .server-info {
+            display: grid;
+            gap: 10px;
+            text-align: center;
+            margin-top: 15px;
+            color: #a0a0a0;
+        }
+
+        .server-info div {
+            font-size: 0.9rem;
+        }
+
+        .version {
+            color: var(--primary-color);
         }
 
         @media (max-width: 600px) {
@@ -217,19 +263,34 @@
             h1 {
                 font-size: 2.5rem;
             }
+
+            #server-ip {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="particles"></div>
     <div class="container">
         <h1>Connisko SMP</h1>
+        
+        <div class="server-status">
+            <span class="status-indicator"></span>
+            <span id="status">Checking server status...</span>
+        </div>
 
         <div class="ip-section">
             <div class="ip-container">
                 <span id="server-ip">ConniskoSMP.com</span>
-                <button class="copy-btn" onclick="copyIP()">
+                <button class="copy-btn" onclick="copyIP()" aria-label="Copy IP">
                     <i class="fas fa-copy"></i>
                 </button>
+            </div>
+            <div class="server-info">
+                <div id="player-count">Players: --/--</div>
+                <div id="version" class="version">Version: --</div>
+                <div id="ping">Ping: --ms</div>
             </div>
         </div>
 
@@ -252,9 +313,64 @@
     <div id="toast" class="toast">IP copied to clipboard!</div>
 
     <script>
+        const SERVER_ADDRESS = 'ConniskoSMP.com';
+        const STATUS_ENDPOINT = `https://api.mcsrvstat.us/2/${SERVER_ADDRESS}`;
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.opacity = Math.random() * 0.5;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        async function updateServerStatus() {
+            const statusIndicator = document.querySelector('.status-indicator');
+            const statusText = document.getElementById('status');
+            const playerCount = document.getElementById('player-count');
+            const versionElem = document.getElementById('version');
+            const pingElem = document.getElementById('ping');
+
+            try {
+                const response = await fetch(STATUS_ENDPOINT);
+                const data = await response.json();
+
+                if (data.online) {
+                    statusIndicator.className = 'status-indicator status-online';
+                    statusText.textContent = 'Server Online';
+                    playerCount.textContent = `Players: ${data.players.online}/${data.players.max}`;
+                    versionElem.textContent = `Version: ${data.version}`;
+                    
+                    // Calculate approximate ping
+                    const pingStart = performance.now();
+                    await fetch(STATUS_ENDPOINT);
+                    const pingTime = Math.round(performance.now() - pingStart);
+                    pingElem.textContent = `Ping: ${pingTime}ms`;
+                } else {
+                    statusIndicator.className = 'status-indicator status-offline';
+                    statusText.textContent = 'Server Offline';
+                    playerCount.textContent = 'Players: --/--';
+                    versionElem.textContent = 'Version: --';
+                    pingElem.textContent = 'Ping: --ms';
+                }
+            } catch (error) {
+                statusIndicator.className = 'status-indicator status-offline';
+                statusText.textContent = 'Unable to reach server';
+                playerCount.textContent = 'Players: --/--';
+                versionElem.textContent = 'Version: --';
+                pingElem.textContent = 'Ping: --ms';
+            }
+        }
+
         function copyIP() {
-            const ip = "ConniskoSMP.com";
-            navigator.clipboard.writeText(ip).then(() => showToast());
+            navigator.clipboard.writeText(SERVER_ADDRESS).then(() => showToast());
         }
 
         function showToast() {
@@ -262,6 +378,14 @@
             toast.classList.add("show");
             setTimeout(() => toast.classList.remove("show"), 2000);
         }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            updateServerStatus();
+            // Update status every 30 seconds
+            setInterval(updateServerStatus, 30000);
+        });
     </script>
 </body>
 </html>
