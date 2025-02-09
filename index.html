@@ -1,2 +1,418 @@
-Goodbye - Johnny
-2/6/2025
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join ConniskoSMP Minecraft Server - A premium survival multiplayer experience">
+    <title>ConniskoSMP | Premium Minecraft Server</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #1a56db;
+            --primary-dark: #1e429f;
+            --primary-light: #e1effe;
+            --success: #059669;
+            --error: #dc2626;
+            --text: #111827;
+            --text-light: #4b5563;
+            --background: #f9fafb;
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --hover: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            background: var(--background);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px -4px rgb(0 0 0 / 0.05), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 32px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            background: linear-gradient(to bottom, var(--primary-light), var(--card));
+        }
+
+        .server-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .server-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .server-description {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .server-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--card);
+            border-radius: 100px;
+            box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+        }
+
+        .status-online {
+            background: var(--success);
+            box-shadow: 0 0 0 4px rgb(5 150 105 / 0.2);
+        }
+
+        .status-offline {
+            background: var(--error);
+            box-shadow: 0 0 0 4px rgb(220 38 38 / 0.2);
+        }
+
+        .content {
+            padding: 32px;
+        }
+
+        .ip-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            margin-bottom: 32px;
+            transition: all 0.2s;
+        }
+
+        .ip-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .ip-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        #server-ip {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            display: block;
+            margin-right: 48px;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .server-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .info-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .info-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .btn-group {
+            display: grid;
+            gap: 12px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hover);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 16px;
+            }
+
+            .container {
+                border-radius: 16px;
+            }
+
+            .header {
+                padding: 24px;
+            }
+
+            .content {
+                padding: 24px;
+            }
+
+            #server-ip {
+                font-size: 18px;
+            }
+
+            .server-info {
+                gap: 12px;
+            }
+
+            .info-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="SMP-ICON.png" alt="ConniskoSMP Server Icon" class="server-icon">
+            <h1 class="server-title">ConniskoSMP</h1>
+            <p class="server-description">Premium Survival Multiplayer Experience</p>
+            <div class="server-status">
+                <span class="status-indicator"></span>
+                <span id="status">Checking server status...</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="ip-card">
+                <div class="ip-label">Server Address</div>
+                <span id="server-ip">ConniskoSMP.com</span>
+                <button class="copy-btn" onclick="copyIP()" aria-label="Copy server address">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+
+            <div class="server-info">
+                <div class="info-item">
+                    <div class="info-label">Players</div>
+                    <div class="info-value" id="player-count">--/--</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Version</div>
+                    <div class="info-value" id="version">--</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Ping</div>
+                    <div class="info-value" id="ping">--ms</div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="copyIP()">
+                    <i class="fas fa-play"></i>
+                    Start Playing Now
+                </button>
+                <a href="https://discord.gg/fER2Hwrwsx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i class="fab fa-discord"></i>
+                    Join Our Community
+                </a>
+                <a href="https://www.twitch.tv/connisko" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i class="fab fa-twitch"></i>
+                    Watch Live Streams
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Server address copied to clipboard!</div>
+
+    <script>
+        const SERVER_ADDRESS = 'ConniskoSMP.com';
+        const STATUS_ENDPOINT = `https://api.mcsrvstat.us/2/${SERVER_ADDRESS}`;
+        
+        async function updateServerStatus() {
+            const statusIndicator = document.querySelector('.status-indicator');
+            const statusText = document.getElementById('status');
+            const playerCount = document.getElementById('player-count');
+            const versionElem = document.getElementById('version');
+            const pingElem = document.getElementById('ping');
+
+            try {
+                const startTime = performance.now();
+                const response = await fetch(STATUS_ENDPOINT);
+                const pingTime = Math.round(performance.now() - startTime);
+                const data = await response.json();
+
+                if (data.online) {
+                    statusIndicator.className = 'status-indicator status-online';
+                    statusText.textContent = 'Server Online';
+                    playerCount.textContent = `${data.players.online}/${data.players.max}`;
+                    versionElem.textContent = data.version;
+                    pingElem.textContent = `${pingTime}ms`;
+                } else {
+                    statusIndicator.className = 'status-indicator status-offline';
+                    statusText.textContent = 'Server Offline';
+                    playerCount.textContent = '--/--';
+                    versionElem.textContent = '--';
+                    pingElem.textContent = '--ms';
+                }
+            } catch (error) {
+                console.error('Error fetching server status:', error);
+                statusIndicator.className = 'status-indicator status-offline';
+                statusText.textContent = 'Status Unavailable';
+                playerCount.textContent = '--/--';
+                versionElem.textContent = '--';
+                pingElem.textContent = '--ms';
+            }
+        }
+
+        function copyIP() {
+            navigator.clipboard.writeText(SERVER_ADDRESS)
+                .then(() => showToast())
+                .catch(err => {
+                    console.error('Failed to copy:', err);
+                    showToast('Failed to copy server address');
+                });
+        }
+
+        function showToast(message = 'Server address copied to clipboard!') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateServerStatus();
+            // Update status every minute
+            setInterval(updateServerStatus, 60000);
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90defa8b08ef3704","version":"2025.1.0","r":1,"token":"d9ef264fe33648fda132d48122833aa6","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
