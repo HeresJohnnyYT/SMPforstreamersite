@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Join ConniskoSMP Minecraft Server - A premium survival multiplayer experience">
-    <title>ConniskoSMP | Premium Minecraft Server</title>
+    <title>Connisko SMP | Minecraft Server</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
-            --primary: #1a56db;
-            --primary-dark: #1e429f;
-            --primary-light: #e1effe;
-            --success: #059669;
-            --error: #dc2626;
-            --text: #111827;
-            --text-light: #4b5563;
-            --background: #f9fafb;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #22c55e;
+            --error: #ef4444;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --background: #f8fafc;
             --card: #ffffff;
             --border: #e5e7eb;
-            --hover: #f3f4f6;
         }
 
         * {
@@ -33,60 +30,43 @@
             background: var(--background);
             color: var(--text);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.5;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 520px;
+            max-width: 480px;
             background: var(--card);
-            border-radius: 20px;
-            box-shadow: 0 8px 16px -4px rgb(0 0 0 / 0.05), 0 4px 6px -2px rgb(0 0 0 / 0.05);
-            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
 
         .header {
-            padding: 32px;
+            padding: 24px 32px;
             border-bottom: 1px solid var(--border);
             text-align: center;
-            background: linear-gradient(to bottom, var(--primary-light), var(--card));
         }
 
         .server-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 12px;
             display: block;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
-
-        .server-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .server-description {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 16px;
+            border-radius: 8px;
         }
 
         .server-status {
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 8px 16px;
-            background: var(--card);
-            border-radius: 100px;
-            box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.05);
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-light);
         }
 
         .status-indicator {
@@ -98,104 +78,81 @@
 
         .status-online {
             background: var(--success);
-            box-shadow: 0 0 0 4px rgb(5 150 105 / 0.2);
         }
 
         .status-offline {
             background: var(--error);
-            box-shadow: 0 0 0 4px rgb(220 38 38 / 0.2);
         }
 
         .content {
-            padding: 32px;
+            padding: 24px 32px;
         }
 
         .ip-card {
             background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 16px;
             position: relative;
-            margin-bottom: 32px;
-            transition: all 0.2s;
-        }
-
-        .ip-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            margin-bottom: 24px;
         }
 
         .ip-label {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 500;
             color: var(--text-light);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            margin-bottom: 4px;
         }
 
         #server-ip {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             color: var(--text);
             display: block;
-            margin-right: 48px;
-            word-break: break-all;
+            margin-right: 40px;
         }
 
         .copy-btn {
             position: absolute;
-            right: 20px;
+            right: 16px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: none;
+            border: none;
             color: var(--primary);
             cursor: pointer;
-            padding: 10px;
-            border-radius: 8px;
-            transition: all 0.2s;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
         }
 
         .copy-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+            background: rgb(37 99 235 / 0.1);
         }
 
         .server-info {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .info-item {
             text-align: center;
-            padding: 16px;
+            padding: 12px;
             background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: all 0.2s;
-        }
-
-        .info-item:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
+            border-radius: 8px;
         }
 
         .info-label {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 500;
             color: var(--text-light);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            margin-bottom: 4px;
         }
 
         .info-value {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 600;
             color: var(--text);
         }
 
@@ -206,14 +163,14 @@
 
         .btn {
             width: 100%;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             transition: all 0.2s;
             cursor: pointer;
             text-decoration: none;
@@ -227,7 +184,6 @@
 
         .btn-primary:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
         }
 
         .btn-secondary {
@@ -237,26 +193,23 @@
         }
 
         .btn-secondary:hover {
-            background: var(--hover);
-            border-color: var(--primary);
-            transform: translateY(-2px);
+            background: #f1f5f9;
         }
 
         .toast {
             position: fixed;
-            bottom: 32px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: var(--text);
             color: white;
             padding: 12px 24px;
-            border-radius: 100px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 500;
             opacity: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s;
             z-index: 1000;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
         .toast.show {
@@ -264,33 +217,21 @@
             opacity: 1;
         }
 
-        @media (max-width: 520px) {
-            body {
-                padding: 16px;
-            }
-
+        @media (max-width: 480px) {
             .container {
-                border-radius: 16px;
+                border-radius: 12px;
             }
 
             .header {
-                padding: 24px;
+                padding: 20px 24px;
             }
 
             .content {
-                padding: 24px;
+                padding: 20px 24px;
             }
 
             #server-ip {
                 font-size: 18px;
-            }
-
-            .server-info {
-                gap: 12px;
-            }
-
-            .info-item {
-                padding: 12px;
             }
         }
     </style>
@@ -298,9 +239,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="SMP-ICON.png" alt="ConniskoSMP Server Icon" class="server-icon">
-            <h1 class="server-title">ConniskoSMP</h1>
-            <p class="server-description">Premium Survival Multiplayer Experience</p>
+            <img src="SMP-ICON.png" alt="Server Icon" class="server-icon">
             <div class="server-status">
                 <span class="status-indicator"></span>
                 <span id="status">Checking server status...</span>
@@ -311,7 +250,7 @@
             <div class="ip-card">
                 <div class="ip-label">Server Address</div>
                 <span id="server-ip">ConniskoSMP.com</span>
-                <button class="copy-btn" onclick="copyIP()" aria-label="Copy server address">
+                <button class="copy-btn" onclick="copyIP()" aria-label="Copy IP">
                     <i class="fas fa-copy"></i>
                 </button>
             </div>
@@ -334,21 +273,21 @@
             <div class="btn-group">
                 <button class="btn btn-primary" onclick="copyIP()">
                     <i class="fas fa-play"></i>
-                    Start Playing Now
+                    Join Server
                 </button>
                 <a href="https://discord.gg/fER2Hwrwsx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
                     <i class="fab fa-discord"></i>
-                    Join Our Community
+                    Join Discord
                 </a>
                 <a href="https://www.twitch.tv/connisko" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
                     <i class="fab fa-twitch"></i>
-                    Watch Live Streams
+                    Watch Live
                 </a>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast">Server address copied to clipboard!</div>
+    <div id="toast" class="toast">IP copied to clipboard!</div>
 
     <script>
         const SERVER_ADDRESS = 'ConniskoSMP.com';
@@ -362,9 +301,7 @@
             const pingElem = document.getElementById('ping');
 
             try {
-                const startTime = performance.now();
                 const response = await fetch(STATUS_ENDPOINT);
-                const pingTime = Math.round(performance.now() - startTime);
                 const data = await response.json();
 
                 if (data.online) {
@@ -372,6 +309,10 @@
                     statusText.textContent = 'Server Online';
                     playerCount.textContent = `${data.players.online}/${data.players.max}`;
                     versionElem.textContent = data.version;
+                    
+                    const pingStart = performance.now();
+                    await fetch(STATUS_ENDPOINT);
+                    const pingTime = Math.round(performance.now() - pingStart);
                     pingElem.textContent = `${pingTime}ms`;
                 } else {
                     statusIndicator.className = 'status-indicator status-offline';
@@ -381,9 +322,8 @@
                     pingElem.textContent = '--ms';
                 }
             } catch (error) {
-                console.error('Error fetching server status:', error);
                 statusIndicator.className = 'status-indicator status-offline';
-                statusText.textContent = 'Status Unavailable';
+                statusText.textContent = 'Unable to reach server';
                 playerCount.textContent = '--/--';
                 versionElem.textContent = '--';
                 pingElem.textContent = '--ms';
@@ -391,28 +331,21 @@
         }
 
         function copyIP() {
-            navigator.clipboard.writeText(SERVER_ADDRESS)
-                .then(() => showToast())
-                .catch(err => {
-                    console.error('Failed to copy:', err);
-                    showToast('Failed to copy server address');
-                });
+            navigator.clipboard.writeText(SERVER_ADDRESS).then(() => showToast());
         }
 
-        function showToast(message = 'Server address copied to clipboard!') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2000);
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             updateServerStatus();
-            // Update status every minute
-            setInterval(updateServerStatus, 60000);
+            // Update status every 30 seconds
+            setInterval(updateServerStatus, 30000);
         });
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90defa8b08ef3704","version":"2025.1.0","r":1,"token":"d9ef264fe33648fda132d48122833aa6","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
 </body>
 </html>
