@@ -18,6 +18,7 @@
             --background: #f8fafc;
             --card: #ffffff;
             --border: #e5e7eb;
+            --twitch: #9146FF;
         }
 
         * {
@@ -59,12 +60,17 @@
             border-radius: 8px;
         }
 
-        .server-status {
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .status-line {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            margin-top: 8px;
             font-size: 14px;
             color: var(--text-light);
         }
@@ -74,6 +80,7 @@
             height: 8px;
             border-radius: 50%;
             background: var(--text-light);
+            position: relative;
         }
 
         .status-online {
@@ -82,6 +89,35 @@
 
         .status-offline {
             background: var(--error);
+        }
+
+        .twitch-live .status-indicator {
+            background: var(--twitch);
+        }
+
+        .twitch-live .status-indicator::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            background: var(--twitch);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            70% {
+                transform: scale(2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
         }
 
         .content {
@@ -196,6 +232,26 @@
             background: #f1f5f9;
         }
 
+        .btn-twitch {
+            background: var(--twitch);
+            color: white;
+            border: none;
+        }
+
+        .btn-twitch:hover {
+            background: #7e3bd3;
+        }
+
+        .btn-twitch.offline {
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-twitch.offline:hover {
+            background: #f1f5f9;
+        }
+
         .toast {
             position: fixed;
             bottom: 24px;
@@ -240,9 +296,16 @@
     <div class="container">
         <div class="header">
             <img src="SMP-ICON.png" alt="Server Icon" class="server-icon">
-            <div class="server-status">
-                <span class="status-indicator"></span>
-                <span id="status">Checking server status...</span>
+            <div class="status-container">
+                <div class="status-line">
+                    <span class="status-indicator"></span>
+                    <span id="status">Checking server status...</span>
+                </div>
+                <div class="status-line" id="twitch-status-line">
+                    <span class="status-indicator"></span>
+                    <i class="fab fa-twitch"></i>
+                    <span id="twitch-status">Checking stream status...</span>
+                </div>
             </div>
         </div>
 
@@ -279,9 +342,9 @@
                     <i class="fab fa-discord"></i>
                     Join Discord
                 </a>
-                <a href="https://www.twitch.tv/connisko" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                <a href="https://www.twitch.tv/connisko" target="_blank" rel="noopener noreferrer" class="btn btn-twitch" id="twitch-button">
                     <i class="fab fa-twitch"></i>
-                    Watch Live
+                    <span id="twitch-text">Watch Stream</span>
                 </a>
             </div>
         </div>
@@ -292,9 +355,46 @@
     <script>
         const SERVER_ADDRESS = 'ConniskoSMP.com';
         const STATUS_ENDPOINT = `https://api.mcsrvstat.us/2/${SERVER_ADDRESS}`;
+        const TWITCH_USERNAME = 'connisko';
         
+        async function checkTwitchStatus() {
+            const twitchStatusLine = document.getElementById('twitch-status-line');
+            const twitchStatus = document.getElementById('twitch-status');
+            const statusIndicator = twitchStatusLine.querySelector('.status-indicator');
+            const twitchButton = document.getElementById('twitch-button');
+            const twitchText = document.getElementById('twitch-text');
+            
+            try {
+                const response = await fetch(`https://twitchtracker.com/api/channels/summary/${TWITCH_USERNAME}`);
+                const data = await response.json();
+                
+                if (data.isLive) {
+                    twitchStatusLine.classList.add('twitch-live');
+                    statusIndicator.classList.add('status-online');
+                    statusIndicator.classList.remove('status-offline');
+                    twitchStatus.textContent = 'Stream Live';
+                    twitchButton.classList.remove('offline');
+                    twitchText.textContent = 'Watch Live';
+                } else {
+                    twitchStatusLine.classList.remove('twitch-live');
+                    statusIndicator.classList.remove('status-online');
+                    statusIndicator.classList.add('status-offline');
+                    twitchStatus.textContent = 'Stream Offline';
+                    twitchButton.classList.add('offline');
+                    twitchText.textContent = 'Watch Stream';
+                }
+            } catch (error) {
+                twitchStatusLine.classList.remove('twitch-live');
+                statusIndicator.classList.remove('status-online');
+                statusIndicator.classList.add('status-offline');
+                twitchStatus.textContent = 'Stream Offline';
+                twitchButton.classList.add('offline');
+                twitchText.textContent = 'Watch Stream';
+            }
+        }
+
         async function updateServerStatus() {
-            const statusIndicator = document.querySelector('.status-indicator');
+            const statusIndicator = document.querySelector('.status-line:first-child .status-indicator');
             const statusText = document.getElementById('status');
             const playerCount = document.getElementById('player-count');
             const versionElem = document.getElementById('version');
@@ -343,8 +443,10 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             updateServerStatus();
+            checkTwitchStatus();
             // Update status every 30 seconds
             setInterval(updateServerStatus, 30000);
+            setInterval(checkTwitchStatus, 30000);
         });
     </script>
 </body>
